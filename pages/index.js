@@ -19,7 +19,7 @@ export default function Home({ data }) {
         <div>
           {Object.entries(data).map(([key, response]) => {
             return (
-              <div className={styles.separator}>
+              <div className={styles.separator} key={key.trim()}>
                 <p>{key} {response.value?.url} </p>
                 <p>Expiry {response.expire} <span className={response.value?.data ? styles.up : styles.down}>{response.value?.data ? "OK" : "DOWN"}</span></p>
               </div>
