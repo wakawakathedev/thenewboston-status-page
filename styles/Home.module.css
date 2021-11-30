@@ -113,6 +113,20 @@
   margin-left: 0.5rem;
 }
 
+.separator {
+  padding-bottom: 1em;
+}
+
+.down {
+  padding: .2em;
+  background-color: #e74c3c;
+}
+
+.up {
+  padding: .2em;
+  background-color: #27ae60;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
