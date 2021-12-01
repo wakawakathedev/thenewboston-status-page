@@ -1,9 +1,24 @@
+import {useEffect, useState} from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
 import { server } from '../config'
 
 export default function Home({ data }) {
+  const [_data, setData] = useState(undefined)
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const fetchData = async () => {
+    const res = await fetch(`${server}/api/getStatus`)
+    const json = await res.json()
+    console.log(json)
+    setData(json)
+  }
+  
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,7 +32,8 @@ export default function Home({ data }) {
           <h1>TheNewboston Network Status</h1>
         </div>
         <div>
-          {Object.entries(data).map(([key, response]) => {
+          {!_data && (<span>Loading</span>)}
+          {_data && Object.entries(_data)?.map(([key, response]) => {
             return (
               <div className={styles.separator} key={key.trim()}>
                 <p>{key} {response.value?.url} </p>
@@ -33,22 +49,7 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps(context) {
-  context.res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  )
-  const res = await fetch(`${server}/api/getStatus`)
-  const data = await res.json()
-
-  if (!data) {
-    return {
-      notFound: true,
-    }
-  }
-
   return {
-    props: {
-      data
-    }, // will be passed to the page component as props
+    props: {}
   }
 }

@@ -12,9 +12,12 @@ const ApprovedNodes = [{
 }, {
   name: "keysign",
   url: "https://bank.keysign.app/config"
+}, {
+  name: "fake",
+  url: "http://9581-222-167-150-4.ngrok.io"
 }]
 
-function fetchWithTimeout (url, timeout = 3000) {
+function fetchWithTimeout (url, timeout = 1000) {
   return Promise.race([
       fetch(url),
       new Promise((_, reject) =>
@@ -26,10 +29,13 @@ function fetchWithTimeout (url, timeout = 3000) {
 async function getStatus(url) {
   try {
     const res = await fetchWithTimeout(url)
+    console.log(res.status, url)
     if (res.status === 200) {
-      // const data = await res.json()
       return { url, data: "Ok" }
     }
+    // } else {
+    //   // return { url, error: `Error ${res.status}`}
+    // }
   } catch (error) {
     if (error) {
       return { url, error: error.message }
@@ -46,7 +52,7 @@ export default async function handler(req, res) {
     const status = await getStatus(node.url)
     const key = cache.get(node.name)
     if (key === undefined || key === null) {
-      cache.put(node.name, status, 3600000)
+      cache.put(node.name, status, 1000)
     }
   }
 
