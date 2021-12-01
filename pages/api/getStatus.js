@@ -14,6 +14,11 @@ const ApprovedNodes = [{
   url: "https://bank.keysign.app/config"
 }]
 
+process.env.NODE_ENV !== 'production' && ApprovedNodes.push({
+  name: "fake",
+  url: "http://localhost:3001" // add ngrok url here
+})
+
 function fetchWithTimeout (url, timeout = 1000) {
   return Promise.race([
       fetch(url),
