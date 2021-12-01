@@ -4,8 +4,8 @@ import styles from '../styles/Home.module.css'
 
 import { server } from '../config'
 
-export default function Home({ data }) {
-  const [_data, setData] = useState(undefined)
+export default function Home() {
+  const [data, setData] = useState(undefined)
 
   useEffect(() => {
     fetchData()
@@ -14,7 +14,6 @@ export default function Home({ data }) {
   const fetchData = async () => {
     const res = await fetch(`${server}/api/getStatus`)
     const json = await res.json()
-    console.log(json)
     setData(json)
   }
   
@@ -32,8 +31,8 @@ export default function Home({ data }) {
           <h1>TheNewboston Network Status</h1>
         </div>
         <div>
-          {!_data && (<span>Loading</span>)}
-          {_data && Object.entries(_data)?.map(([key, response]) => {
+          {!data && (<span>Loading</span>)}
+          {data && Object.entries(data)?.map(([key, response]) => {
             return (
               <div className={styles.separator} key={key.trim()}>
                 <p>{key} {response.value?.url} </p>
@@ -46,10 +45,4 @@ export default function Home({ data }) {
       </main>
     </div>
   )
-}
-
-export async function getServerSideProps(context) {
-  return {
-    props: {}
-  }
 }
