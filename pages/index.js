@@ -2,8 +2,6 @@ import {useEffect, useState} from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-import { server } from '../config'
-
 export default function Home() {
   const [data, setData] = useState(undefined)
 

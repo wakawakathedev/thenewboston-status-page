@@ -12,9 +12,6 @@ const ApprovedNodes = [{
 }, {
   name: "keysign",
   url: "https://bank.keysign.app/config"
-}, {
-  name: "fake",
-  url: "http://9581-222-167-150-4.ngrok.io"
 }]
 
 function fetchWithTimeout (url, timeout = 1000) {
