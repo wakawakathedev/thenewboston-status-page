@@ -29,13 +29,9 @@ function fetchWithTimeout (url, timeout = 1000) {
 async function getStatus(url) {
   try {
     const res = await fetchWithTimeout(url)
-    console.log(res.status, url)
     if (res.status === 200) {
       return { url, data: "Ok" }
     }
-    // } else {
-    //   // return { url, error: `Error ${res.status}`}
-    // }
   } catch (error) {
     if (error) {
       return { url, error: error.message }
@@ -52,7 +48,7 @@ export default async function handler(req, res) {
     const status = await getStatus(node.url)
     const key = cache.get(node.name)
     if (key === undefined || key === null) {
-      cache.put(node.name, status, 1000)
+      cache.put(node.name, status, 5000)
     }
   }
 

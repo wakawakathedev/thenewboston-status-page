@@ -12,7 +12,7 @@ export default function Home() {
   }, [])
 
   const fetchData = async () => {
-    const res = await fetch(`${server}/api/getStatus`)
+    const res = await fetch(`api/getStatus`)
     const json = await res.json()
     setData(json)
   }
