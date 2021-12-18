@@ -1,5 +1,11 @@
 import cache from 'memory-cache'
 
+import { ResponseStatus } from 'src/types/ResponseStatus'
+
+type HttpResponseStatus = {
+  status: Number
+}
+
 const ApprovedNodes = [{
   name: "PV",
   url: "http://52.52.160.149/config"
@@ -28,9 +34,10 @@ function fetchWithTimeout (url, timeout = 1000) {
   ]);
 }
 
-async function getStatus(url) {
+
+async function getStatus(url): Promise<ResponseStatus> {
   try {
-    const res = await fetchWithTimeout(url)
+    const res = await fetchWithTimeout(url) as HttpResponseStatus
     if (res.status === 200) {
       return { url, data: "Ok" }
     }
